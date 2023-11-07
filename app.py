@@ -9,8 +9,6 @@ from flask_bcrypt import Bcrypt
 
 
 app = Flask(__name__)
-bcrypt = Bcrypt(app)
-
 app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get("DATABASE_URL")
 #postgres://blog_vsu9_user:JJeGS9uaXfN4T6igsJp7RXcZnnuckGo5@dpg-cl54fsc72pts739rig70-a.oregon-postgres.render.com/blog_vsu9
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
@@ -18,6 +16,7 @@ app.secret_key = 'your_secret_key'
 
 db = SQLAlchemy(app)
 migrate = Migrate(app, db)
+bcrypt = Bcrypt(app)
 
 CORS(app) 
 
