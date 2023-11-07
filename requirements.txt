@@ -53,7 +53,8 @@
 # flask-marshmallow==0.15.0
 # Flask-Migrate==4.0.5
 # Flask-RESTful==0.3.10
-Flask-SQLAlchemy==3.1.1
+Flask-SQLAlchemy==2.4.4
+
 # greenlet==1.1.2
 gunicorn==20.1.0
 flask==2.1.1
