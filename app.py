@@ -1,3 +1,4 @@
+import os
 from flask import Flask,request, jsonify
 from flask import Flask, request, jsonify, render_template, redirect, flash
 from flask_sqlalchemy import SQLAlchemy
@@ -10,7 +11,8 @@ from flask_bcrypt import Bcrypt
 app = Flask(__name__)
 bcrypt = Bcrypt(app)
 
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///blog.db'
+app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get("DATABASE_URL")
+#postgres://blog_vsu9_user:JJeGS9uaXfN4T6igsJp7RXcZnnuckGo5@dpg-cl54fsc72pts739rig70-a.oregon-postgres.render.com/blog_vsu9
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.secret_key = 'your_secret_key'
 
