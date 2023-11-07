@@ -15,6 +15,6 @@ click>=8.0
 importlib-resources; python_version < "3.9"
 typing-extensions>=4
 Mako
-greenlet!=0.4.17; platform_machine == "aarch64" or (platform_machine == "ppc64le" or (platform_machine == "x86_64" or (platform_machine == "amd64" or (platform_machine == "AMD64" or (platform_machine == "win32" or platform_machine == "WIN32"))))
+greenlet!=0.4.17; platform_machine == "aarch64" or platform_machine == "ppc64le" or platform_machine == "x86_64" or platform_machine == "amd64" or platform_machine == "AMD64" or platform_machine == "win32" or platform_machine == "WIN32"
 zipp>=0.5
 MarkupSafe>=2.1.1
