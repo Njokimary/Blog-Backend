@@ -113,12 +113,22 @@ def get_all_users():
 # Create a new post
 @app.route('/posts', methods=['POST'])
 def create_post():
-    data = request.get_json()
-    new_post = Post(title=data['title'], content=data['content'], user_id=data['user_id'], image_url=data['image_url'])
-    db.session.add(new_post)
-    db.session.commit()
-    return jsonify({'message': 'Post created successfully!'})
+    try:
+        data = request.get_json()
 
+        # Check if all required data is present in the request
+        if 'title' not in data or 'content' not in data or 'user_id' not in data or 'image_url' not in data:
+            return jsonify({'error': 'Incomplete data provided'}), 400  # Bad Request
+
+        new_post = Post(title=data['title'], content=data['content'], user_id=data['user_id'], image_url=data['image_url'])
+        db.session.add(new_post)
+        db.session.commit()
+
+        return jsonify({'message': 'Post created successfully'}), 201  # Created
+    except Exception as e:
+        # Log the error for debugging purposes
+        print(f"Error creating post: {str(e)}")
+        return jsonify({'error': 'An error occurred while creating the post'}), 500  # Internal Server Error
 ##get all posts
 
 @app.route('/posts', methods=['GET'])
