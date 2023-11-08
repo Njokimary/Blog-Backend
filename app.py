@@ -89,13 +89,30 @@ post_category = db.Table('post_category',
 
 
 # Create a new user
+
 @app.route('/users', methods=['POST'])
 def create_user():
-    data = request.get_json()
-    new_user = User(username=data['username'])
-    db.session.add(new_user)
-    db.session.commit()
-    return jsonify({'message': 'User created successfully!'})
+    try:
+        data = request.get_json()
+
+        # Check if the 'username' field is provided in the request data
+        if 'username' not in data:
+            return jsonify({'error': 'Username is required'}), 400  # Bad Request
+
+        # Check if the user already exists
+        existing_user = User.query.filter_by(username=data['username']).first()
+        if existing_user:
+            return jsonify({'error': 'User with this username already exists'}), 409  # Conflict
+
+        new_user = User(username=data['username'])
+        db.session.add(new_user)
+        db.session.commit()
+
+        return jsonify({'message': 'User created successfully'}), 201  # Created
+    except Exception as e:
+        # Log the error for debugging purposes
+        print(f"Error creating user: {str(e)}")
+        return jsonify({'error': 'An error occurred while creating the user'}), 500  # Internal Server Error
 
 # Get all users
 @app.route('/users', methods=['GET'])
